@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { LoginContext } from '../../context/LoginContext'
 
 function Navbar() {
+ const {user,logout}=useContext(LoginContext);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -52,7 +54,21 @@ function Navbar() {
               </Link>
             </li>
 
+           {
+            user ?<>
+             <li className="nav-item">
+              <button className="nav-link" onClick={()=>logout()}>
+                Logout
+              </button>
+            </li>
+
             <li className="nav-item">
+              <Link className="nav-link">
+                {user.firstName}
+              </Link>
+            </li>
+            </>:<>
+             <li className="nav-item">
               <Link className="nav-link" to="/login">
                 Login
               </Link>
@@ -63,6 +79,8 @@ function Navbar() {
                 Register
               </Link>
             </li>
+            </>
+           }
 
           </ul>
         </div>

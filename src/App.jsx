@@ -8,6 +8,7 @@ import Profile from './components/pages/Profile'
 import AddProduct from './components/adminPages/AddProduct'
 import ProductList from './components/adminPages/ProductList'
 import Products from './components/pages/Products'
+import { LoginProvider } from './context/LoginContext'
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
+    <LoginProvider>
       <RouterProvider router={router} />
+    </LoginProvider>
+      
     </>
   )
 }

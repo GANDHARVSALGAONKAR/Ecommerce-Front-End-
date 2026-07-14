@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { api } from '../../api';
+import { LoginContext } from '../../context/LoginContext';
 
 function Login() {
-
   const { register, handleSubmit } = useForm();
+  const {login}=useContext(LoginContext);
 
   const onSubmit = async (data) => {
 
@@ -14,6 +15,7 @@ function Login() {
     try {
       const response = await api.post("/auth/login", data);
       console.log(response);
+      login(response.data.token, response.data.userDto);
     } catch (error) {
       console.log(error);
     }
