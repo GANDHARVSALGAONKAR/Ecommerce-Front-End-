@@ -1,7 +1,25 @@
 import React from 'react'
+import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
+import { api } from '../../api';
 
 function Login() {
+
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+
+    console.log("Fetched Data",data);
+    
+    try {
+      const response = await api.post("/auth/login", data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+
+  };
+
   return (
     <main className="auth-page">
       <div className="container py-5">
@@ -28,7 +46,7 @@ function Login() {
               </div>
 
               <div className="auth-panel">
-                <form className="auth-form">
+                <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-3">
                     <label className="form-label auth-label" htmlFor="loginEmail">
                       Email address
@@ -38,6 +56,7 @@ function Login() {
                       type="email"
                       className="form-control auth-input"
                       placeholder="you@example.com"
+                      {...register("email")}
                     />
                   </div>
 
@@ -50,6 +69,7 @@ function Login() {
                       type="password"
                       className="form-control auth-input"
                       placeholder="Enter your password"
+                      {...register("password")}
                     />
                   </div>
 
