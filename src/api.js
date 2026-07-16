@@ -5,9 +5,12 @@ export const api=axios.create({
 
 });
 
+// INTERCEPTORS WILL RUN WITH ALL THE REQUEST
+// YOU CAN MODIFY CONFIGURATION USING INTERCEPTORS
+// WE WILL ADD TOKEN WITH EACH AND EVERY REQUEST WHICH WE HAVE STORE IN LOCALSTORAGE
 api.interceptors.request.use(
     (config) => {
-        let token=localStorage.getItem("token");
+        const token=localStorage.getItem("token");
         if (token) config.headers.Authorization=`Bearer ${token}`;
         return config;
     },

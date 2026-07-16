@@ -31,6 +31,18 @@ function Products() {
     } catch (error) {}
   }
 
+  const addToCart = async (productId)=>{
+     try {
+      const response=await api.post(`/cart/${productId}`,{quantity:1});
+     console.log("Add To Cart",response);
+     alert("Product Added Into Cart");
+     } catch (error) {
+      alert("Something Went Wrong")
+     }
+     
+
+  }
+
   useEffect(() => {
     fetchProducts();
     fetchCategories();
@@ -63,7 +75,7 @@ function Products() {
                   <p class="card-text">{p.description}</p>
 
                   <p class="card-text">Price :{p.price}</p>
-                  <button className="btn btn-primary m-3"> ADD to cart </button>
+                  <button className="btn btn-primary m-3" onClick={()=>addToCart(p.id)}> ADD to cart </button>
                 </div>
               </div>
             </div>
